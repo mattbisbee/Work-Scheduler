@@ -1,35 +1,101 @@
+$(document).ready(function() {
 
-var currentDate = moment();
-var displayDate = document.getElementById('currentDay');
-displayDate.innerHTML = currentDate.format("dddd, MMMM Do YYYY");
-var currentMonth = currentDate.format("M");
-console.log(currentMonth);
+  //Display current date with moment js
+  var currentDate = moment();
 
-var currentYear = currentDate.format("YYYY");
-console.log(currentYear);
+  var displayDate = document.getElementById('currentDay');
+  displayDate.innerHTML = currentDate.format('dddd, MMMM Do YYYY');
 
+  var currentMonth = currentDate.format('M');
+  console.log(currentMonth);
 
+  var currentYear = currentDate.format('YYYY');
+  console.log(currentYear);
 
-var hr900 = moment(currentYear + '-' + currentMonth + '-' + ' 09:00').format('h:00 A');
-console.log(hr900);
-var hr1000 = moment(currentYear + '-' + currentMonth + '-' + ' 10:00').format('h:00 A');
-console.log(hr1000);
-var hr1100 = moment(currentYear + '-' + currentMonth + '-' + ' 11:00').format('h:00 A');
-console.log(hr1100);
-var hr1200 = moment(currentYear + '-' + currentMonth + '-' + ' 12:00').format('h:00 A');
-console.log(hr1200);
-var hr1300 = moment(currentYear + '-' + currentMonth + '-' + ' 13:00').format('h:00 A');
-console.log(hr1300);
-var hr1400 = moment(currentYear + '-' + currentMonth + '-' + ' 14:00').format('h:00 A');
-console.log(hr1400);
-var hr1500 = moment(currentYear + '-' + currentMonth + '-' + ' 15:00').format('h:00 A');
-console.log(hr1500);
-var hr1600 = moment(currentYear + '-' + currentMonth + '-' + ' 16:00').format('h:00 A');
-console.log(hr1600);
-var hr1700 = moment(currentYear + '-' + currentMonth + '-' + ' 17:00').format('h:00 A');
-console.log(hr1700);
+  var currentTime = currentDate.format('h:mm A')
+  console.log(currentTime);
 
 
+  //used moment js to set the hour for the timeblocks
+  var hr900 = moment().hour(9).format('h:00 A');
+  var hr1000 = moment().hour(10).format('h:00 A');
+  var hr1100 = moment().hour(11).format('h:00 A');
+  var hr1200 = moment().hour(12).format('h:00 A');
+  var hr1300 = moment().hour(13).format('h:00 A');
+  var hr1400 = moment().hour(14).format('h:00 A');
+  var hr1500 = moment().hour(15).format('h:00 A');
+  var hr1600 = moment().hour(16).format('h:00 A');
+  var hr1700 = moment().hour(17).format('h:00 A');
 
 
+  // add the moment js times (only the hour) to each row 
+  $('#0900').append('<p>' + hr900 + '</p>');
+  $('#1000').append('<p>' + hr1000 + '</p>');
+  $('#1100').append('<p>' + hr1100 + '</p>');
+  $('#1200').append('<p>' + hr1200 + '</p>');
+  $('#1300').append('<p>' + hr1300 + '</p>');
+  $('#1400').append('<p>' + hr1400 + '</p>');
+  $('#1500').append('<p>' + hr1500 + '</p>');
+  $('#1600').append('<p>' + hr1600 + '</p>');
+  $('#1700').append('<p>' + hr1700 + '</p>');
 
+  //jquery on click event to save info to local storage
+  $('.saveBtn').on('click', function (event) {
+    event.preventDefault();
+
+    var textArea = $(this).parent().find('textarea').val();
+    var time = $(this).parent().attr('id');
+
+    localStorage.setItem(time, textArea);
+  });
+
+  //display saved info upon reloading
+  $('.txtAr0900').val(localStorage.getItem('box0900'));
+  $('.txtAr1000').val(localStorage.getItem('box1000'));
+  $('.txtAr1100').val(localStorage.getItem('box1100'));
+  $('.txtAr1200').val(localStorage.getItem('box1200'));
+  $('.txtAr1300').val(localStorage.getItem('box1300'));
+  $('.txtAr1400').val(localStorage.getItem('box1400'));
+  $('.txtAr1500').val(localStorage.getItem('box1500'));
+  $('.txtAr1600').val(localStorage.getItem('box1600'));
+  $('.txtAr1700').val(localStorage.getItem('box1700'));
+
+  //clear information from Local Storage(start new day)
+  $('.clearBtn').on('click', function (event) {
+    event.preventDefault();
+
+    if (confirm ('Are you sure you want to clear the entire form? This cannot be undone!') === true) {
+      $('#box0900 .txtAr0900').val('');
+      $('#box1000 .txtAr1000').val('');
+      $('#box1100 .txtAr1100').val('');
+      $('#box1200 .txtAr1200').val('');
+      $('#box1300 .txtAr1300').val('');
+      $('#box1400 .txtAr1400').val('');
+      $('#box1500 .txtAr1500').val('');
+      $('#box1600 .txtAr1600').val('');
+      $('#box1700 .txtAr1700').val('');
+      localStorage.clear();
+    } else {
+      return;
+    }
+  });
+
+  //set interval function to display color in textarea depending on the time of day
+
+function changeColor () {
+ if (currentTime === hr900 && hr1000 && hr1100 && hr1200 && hr1300 && hr1400 && hr1500 && hr1600 && hr1700) {
+   $('textarea').attr('style', 'background-color: #ff6961; font-weight: bold;' ),
+   $('saveBtn').attr('style', 'background-color: ff6961;') //present
+ } else if (currentTime < hr900 && hr1000 && hr1100 && hr1200 && hr1300 && hr1400 && hr1500 && hr1600 && hr1700) {
+  $('textarea').attr('style', 'background-color: #d3d3d3; color: red; font-style: italic;')
+  $('.saveBtn').attr('style', 'background-color: black;') //past
+ } else if (currentTime > hr900 && hr1000 && hr1100 && hr1200 && hr1300 && hr1400 && hr1500 && hr1600 && hr1700) {
+  $('textarea').attr('style', 'background-color: 77dd77' ) //future
+ }
+}
+
+setInterval(() =>{
+  changeColor();
+}, (1000 * 60)*30);
+
+});
