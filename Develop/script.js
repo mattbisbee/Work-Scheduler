@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  //Display current date with moment js
+  //Variables for time
   var currentDate = moment();
 
   var displayDate = document.getElementById('currentDay');
@@ -13,7 +13,8 @@ $(document).ready(function() {
   console.log(currentYear);
 
   var currentTime = currentDate.format('h:mm A')
-  console.log(currentTime);
+  console.log('current time', currentTime);
+
 
 
   //used moment js to set the hour for the timeblocks
@@ -41,7 +42,7 @@ $(document).ready(function() {
 
   //jquery on click event to save info to local storage
   $('.saveBtn').on('click', function (event) {
-    event.preventDefault();
+    //event.preventDefault();
 
     var textArea = $(this).parent().find('textarea').val();
     var time = $(this).parent().attr('id');
@@ -82,20 +83,30 @@ $(document).ready(function() {
 
   //set interval function to display color in textarea depending on the time of day
 
-function changeColor () {
- if (currentTime === hr900 && hr1000 && hr1100 && hr1200 && hr1300 && hr1400 && hr1500 && hr1600 && hr1700) {
-   $('textarea').attr('style', 'background-color: #ff6961; font-weight: bold;' ),
-   $('saveBtn').attr('style', 'background-color: ff6961;') //present
- } else if (currentTime < hr900 && hr1000 && hr1100 && hr1200 && hr1300 && hr1400 && hr1500 && hr1600 && hr1700) {
-  $('textarea').attr('style', 'background-color: #d3d3d3; color: red; font-style: italic;')
-  $('.saveBtn').attr('style', 'background-color: black;') //past
- } else if (currentTime > hr900 && hr1000 && hr1100 && hr1200 && hr1300 && hr1400 && hr1500 && hr1600 && hr1700) {
-  $('textarea').attr('style', 'background-color: 77dd77' ) //future
- }
-}
+  var currentHour = moment().hours();
+  console.log('current hour', currentHour);
 
-setInterval(() =>{
-  changeColor();
-}, (1000 * 60)*30);
 
+  let hours = [09, 10, 11, 12, 13, 14, 15, 16, 17];
+
+  var timeBlock = $("textarea");
+
+  for (i = 0; i < timeBlock.length; i++) {
+    changeColor(i);
+  }
+
+  function changeColor(currentIndex) {
+    if (currentHour == hours[currentIndex]) {
+      timeBlock[currentIndex].classList.add("present");
+    } else if (currentHour < hours[currentIndex]) {
+      timeBlock[currentIndex].classList.add("future");
+    } else {
+      timeBlock[currentIndex].classList.add("past");
+    };
+ 
+    console.log('current hour vs current time', testing == hours[i]);
+    console.log(hours[i]);
+  }
 });
+
+
