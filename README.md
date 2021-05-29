@@ -18,13 +18,12 @@ WHEN I refresh the page
 THEN the saved events persist
 
 ### **General Info:**
-Using Moment JS, the first thing I did was to display the current day in the header below the title. 
-I then wrote variables for the current day, month, and year. 
-I knew that I would need to use moment js to populate the times of the day so that I could later use those moment objects to compare to the actual time. 
-I hardcoded the divs for each time block and assigned id's on thier different sections. I 
+Using Moment JS, the first thing I did was to display the current day in the header below the title. I knew that the rest of my moment objects would be based on that so I wanted to get that out of the way.
+I then wrote variables for the current day, month, and year which I used later to create moment objects and compare the time of day to the time listed in each block. 
+I hardcoded the divs for each time block and assigned id's on their different sections. With the color change, a class is added depending on the time. With the help of my tutor, I created an array of hours that gets compared to the current hour variable depending on whether its equal to, greater than, or less than. The set interval function then checks it hourly to update the text area color depending on the time.
 
 ### **Final Notes**
-This assignement was very challenging but, as I have discovered in previous assignments, the simpler the better. It's easy to get lost and I went over my code again and again ensuring I wasn't over complicating it. Getting the color in the background to change according to the time of day was tricky as well.
+This assignement was very challenging but, as I have discovered in previous assignments, the simpler the better. It's easy to get lost and I went over my code again and again ensuring I wasn't over complicating it. Getting the color in the background to change according to the time of day was tricky as well but my tutor Trever helped me through it. 
 
 
 ### **Location:**
@@ -33,4 +32,4 @@ Website can be found at : https://mattbisbee.github.io/Work-Scheduler/
 GitHub: https://github.com/mattbisbee/Work-Scheduler.git
 
 ## **Images:**
-![Screenshot]()
+![Screenshot](capture.jpg)

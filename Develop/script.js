@@ -7,13 +7,13 @@ $(document).ready(function() {
   displayDate.innerHTML = currentDate.format('dddd, MMMM Do YYYY');
 
   var currentMonth = currentDate.format('M');
-  console.log(currentMonth);
+  console.log('Current Month:', currentMonth);
 
   var currentYear = currentDate.format('YYYY');
-  console.log(currentYear);
+  console.log('Current Year:', currentYear);
 
   var currentTime = currentDate.format('h:mm A')
-  console.log('current time', currentTime);
+  console.log('Current Time:', currentTime);
 
 
 
@@ -84,8 +84,7 @@ $(document).ready(function() {
   //set interval function to display color in textarea depending on the time of day
 
   var currentHour = moment().hours();
-  console.log('current hour', currentHour);
-
+  console.log('Current Hour Block (Mil):', currentHour + '00');
 
   let hours = [09, 10, 11, 12, 13, 14, 15, 16, 17];
 
@@ -103,10 +102,14 @@ $(document).ready(function() {
     } else {
       timeBlock[currentIndex].classList.add("past");
     };
- 
-    console.log('current hour vs current time', testing == hours[i]);
-    console.log(hours[i]);
   }
+
+  setInterval(function() {
+    $('textarea').each(function(index, el){
+      changeColor(el);
+    });
+  }, (1000 * 60)*60);
+
 });
 
 
