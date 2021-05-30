@@ -32,4 +32,4 @@ Website can be found at : https://mattbisbee.github.io/Work-Scheduler/
 GitHub: https://github.com/mattbisbee/Work-Scheduler.git
 
 ## **Images:**
-![Screenshot](capture.jpg)
+![Screenshot](Develop\capture.jpg)
